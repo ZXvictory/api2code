@@ -1,5 +1,5 @@
-import { swaggerGenCode } from '../index';
-import swaggerJson from './swagger.json';
+import { swaggerGenCode } from '../command';
+import swaggerJson from './swagger-all.json';
 // import swaggerSimple from './swagger-simple.json'
 
 
@@ -8,5 +8,4 @@ import swaggerJson from './swagger.json';
     const ccc = await swaggerGenCode(swaggerJson);
     
     console.log('----', ccc, '----');
-    
 })()

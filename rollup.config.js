@@ -24,7 +24,7 @@ export default [
     ],
   },
   {
-    input: "./src/index.ts",
+    input: "./src/open.ts",
     output: [
       {
         format: "cjs",

@@ -7,6 +7,7 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   rules: {
-    '@typescript-eslint/ban-ts-comment': 0
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/ban-types': 0
   }
 };
