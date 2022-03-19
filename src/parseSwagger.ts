@@ -126,7 +126,7 @@ const getRequestInfo = (api: SwaggerApiTS) => {
  * @param {object | string} data
  * @return {} 
  */
- export const genApi = async (data: SwaggerJsonTS): Promise<ApiInfoTS>  => {
+ export const parseSwagger = async (data: SwaggerJsonTS): Promise<ApiInfoTS>  => {
   try {
     if (typeof data === 'string') {
       // data = data.trim();

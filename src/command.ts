@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { genListEnum, SwaggerJsonTS, GenCodeResultTS, OptionsTS } from './types/index';
-import { genApi } from './genApi';
+import { parseSwagger } from './parseSwagger';
 import { genTS } from './genTS';
 import { genService } from './genService';
 
@@ -15,7 +15,7 @@ import { genService } from './genService';
 export const swaggerGenCode = async (swagger: SwaggerJsonTS, genList: genListEnum[] = [], options: OptionsTS = {}): Promise<GenCodeResultTS> => {
   let ts,service;
 
-  const apiInfo = await genApi(swagger);
+  const apiInfo = await parseSwagger(swagger);
 
   if (genList.includes(genListEnum.ts)) {
     ts = genTS(apiInfo, options);
