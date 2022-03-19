@@ -155,7 +155,15 @@ export const enum genListEnum {
   service
 }
 
+export interface TSOptionTS {
+  // 自定义 ts interface 名称
+  setTSInterfaceName?: () => string
+}
+
 export interface OptionsTS {
+  // 源数据路径
+  originDataPath?: string 
+  
   // 自定义 ts interface 名称
   setTSInterfaceName?: () => string
 

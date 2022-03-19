@@ -196,8 +196,3 @@ const getRequestInfo = (api: SwaggerApiTS) => {
     };
   }
 }
-
-
-
-
-
