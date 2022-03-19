@@ -2,8 +2,8 @@
   "paths": {
     "/api/portal/account/admin/login/": {
       "post": {
-        "description": "管理员登录",
-        "summary": "管理员登录",
+        "description": "登录",
+        "summary": "登录",
         "tags": ["账户 | account"],
         "consumes": ["multipart/form-data"],
         "operationId": "postApiPortalAccountAdminLogin",
@@ -81,7 +81,7 @@
     },
     "title": "工程描述",
     "version": "1.0",
-    "description": "ksboot-demo"
+    "description": "boot-demo"
   },
   "swagger": "2.0",
   "definitions": {
