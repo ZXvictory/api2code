@@ -1,4 +1,4 @@
-import { genListEnum, SwaggerJsonTS, GenCodeResultTS, OptionsTS } from './types/index';
+import { genListEnum, SwaggerJsonTS, GenCodeResultTS, OptionsTS, ApiInfoTS } from './types/index';
 import { genApi } from './genApi';
 import { genTS } from './genTS';
 import { genService } from './genService';
@@ -7,31 +7,14 @@ import { genService } from './genService';
 /**
  * 生成代码
  *
- * @param {(SwaggerJsonTS | string)} swagger 接收 json、ymal 格式的数据
+ * @param {SwaggerJsonTS} swagger 接收 json、ymal 格式的数据
  * @param {genListEnum} genList
  * @return {*}  {GenCodeResultTS}
  */
-export const swaggerGenCode = (swagger: SwaggerJsonTS | string, genList: genListEnum[], options: OptionsTS): GenCodeResultTS => {
-  let ts,service,apiInfo;
+export const swaggerGenCode = async (swagger: SwaggerJsonTS, genList: genListEnum[] = [], options: OptionsTS = {}): GenCodeResultTS => {
+  let ts,service;
 
-  if (typeof swagger === 'string') {
-    const swaggerData = {
-      swagger: '',
-      info: {
-        title: '',
-        version: '',
-        description: ''
-      },
-      basePath: '',
-      tags: [],
-      paths: {},
-      definitions: {}
-    }
-
-    apiInfo = genApi(swaggerData);
-  } else {
-    apiInfo = genApi(swagger);
-  }
+  const apiInfo = await genApi(swagger);
 
   if (genList.includes(genListEnum.ts)) {
     ts = genTS(apiInfo, options);
@@ -40,9 +23,6 @@ export const swaggerGenCode = (swagger: SwaggerJsonTS | string, genList: genList
   if (genList.includes(genListEnum.service)) {
     service = genService(apiInfo, options);
   }
-
-  console.log('---options', options);
-
 
   const result = {
     apiInfo

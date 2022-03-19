@@ -1,0 +1,127 @@
+{
+  "paths": {
+    "/api/portal/account/admin/login/": {
+      "post": {
+        "description": "管理员登录",
+        "summary": "管理员登录",
+        "tags": ["账户 | account"],
+        "consumes": ["multipart/form-data"],
+        "operationId": "postApiPortalAccountAdminLogin",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "文件",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "description": "切换到服务树改动后的结构",
+            "name": "_new",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          },
+          "304": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/tree.NodeStarCreate"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/batch_delete_user_messages/": {
+      "post": {
+        "description": "批量删除消息",
+        "tags": ["消息 | message"],
+        "summary": "批量删除消息",
+        "parameters": [
+          {
+            "description": "批量删除表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.BatchDelete"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [],
+  "basePath": "/aaa",
+  "info": {
+    "contact": {
+      "name": "lvcanfeng"
+    },
+    "title": "工程描述",
+    "version": "1.0",
+    "description": "ksboot-demo"
+  },
+  "swagger": "2.0",
+  "definitions": {
+    "account.UserLogin": {
+      "type": "object",
+      "required": ["password", "username"],
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "utils.MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "object"
+        }
+      }
+    },
+    "tree.NodeStarCreate": {
+      "type": "object",
+      "required": ["node_id", "product_pid"],
+      "properties": {
+        "node_id": {
+          "type": "integer"
+        },
+        "permission_pid": {
+          "type": "string"
+        },
+        "product_pid": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

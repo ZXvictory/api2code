@@ -4,9 +4,9 @@
   "description": "面向前端的swagger代码生成器",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node --transpile-only ./src/index.ts",
     "build": "rollup -c",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "ts-node --transpile-only ./src/test/index.ts"
   },
   "keywords": [
     "swagger",
@@ -37,5 +37,8 @@
     "ts-node": "^9.0.0",
     "tslib": "^1.10.0",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "swagger-client": "^3.5.1"
   }
 }

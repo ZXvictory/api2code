@@ -1,4 +1,18 @@
-import json5 from 'json5';
+export interface SwaggerJsonTS {
+  swagger: string
+  info: SwaggerInfoTS
+  basePath: string
+  tags: ApiTagItemTS[]
+  paths: {
+    [key: string]: {
+      [key: string]: SwaggerApiTS
+    }
+  }
+  definitions: {
+    [key: string]: SchemaObjectTS
+  }
+  openapi?: string
+}
 
 interface SwaggerInfoTS {
   title: string
@@ -35,16 +49,16 @@ export enum SchemaTypeEnum {
   any,
 }
 
-interface SchemaObject {
+export interface SchemaObjectTS {
   type: SchemaTypeEnum
   required?: string[] // TODO: 是布尔吗
   properties?: {
-    [key: string]: SchemaObject
+    [key: string]: SchemaObjectTS
   }
-  items?: SchemaObject
+  items?: SchemaObjectTS
 }
 
-interface SwaggerParameterTS {
+export interface SwaggerParameterTS {
   name: string
   type: SchemaTypeEnum
   description: string,
@@ -57,34 +71,34 @@ interface SwaggerParameterTS {
 }
 
 interface SwaggerResponsesTS {
+  type: string
   description: string,
   schema: {
     $ref: string
   }
 }
 
-interface CommonParamTS {
+export interface CommonParamTS {
   name: string
-  type: string
-  description: string
+  type?: string
+  description?: string
   required?: boolean
-  schema?: SchemaObject
+  schema?: SchemaObjectTS
+  value?: string
 }
 
-interface SwaggerPathsTS {
-  [key: string]: {
-    [key: string]: {
-      summary: string  // 摘要
-      description: string
-      tags: string[]
-      parameters: SwaggerParameterTS // 请求数据
-      responses: { // 响应数据
-        [key: string]: SwaggerResponsesTS
-      }
-      operationId?: string
-      deprecated?: boolean
-    }
+
+export interface SwaggerApiTS {
+  summary: string  // 摘要
+  description: string
+  tags: string[]
+  parameters: SwaggerParameterTS // 请求数据
+  responses: { // 响应数据
+    [key: string]: SwaggerResponsesTS
   }
+  operationId?: string
+  deprecated?: boolean
+  consumes?: string[]
 }
 
 interface ApiTagItemTS {
@@ -92,43 +106,24 @@ interface ApiTagItemTS {
   description: string
 }
 
-
-export interface SwaggerJsonTS {
-  swagger: string
-  info: SwaggerInfoTS
-  basePath: string
-  tags: ApiTagItemTS[]
-  paths: SwaggerPathsTS
-  definitions: {
-    [key: string]: SchemaObject
-  }
-}
-
-// TODO: 确认下
-export enum RequestBodyTypeEnum {
-  form,
-  json,
-  file,
-  row
-}
-
 // 响应项
 interface ResponseItemTS {
   statusCode: number
   description: string
-  data: SchemaObject
+  data: SchemaObjectTS
 }
 
 export interface ApiItemTS {
-  summary: string // 摘要
   path: string
   method: string
   tags: string[]
-  requestParams: CommonParamTS[] // 请求路径参数
-  requestQuery: CommonParamTS[]  // 请求路径query
+  summary: string // 摘要
+  description: string // 描述
+  requestPathParam: CommonParamTS[] // 请求路径参数
+  requestPathQuery: CommonParamTS[]  // 请求路径query
   requestHeader: CommonParamTS[] // 请求头
-  requestBodyType: RequestBodyTypeEnum
-  requestBody: CommonParamTS[] | string | SchemaObject
+  requestBodyType: string // jdon form row
+  requestBody: CommonParamTS[] | string | SchemaObjectTS
   responseList: ResponseItemTS[]
 }
 
@@ -137,7 +132,15 @@ export interface ApiInfoTS {
   info: SwaggerInfoTS
   basePath: string
   tags: ApiTagItemTS[]
-  apiList: ApiItemTS[]
+  apiList: ApiItemTS[],
+  definitions: {
+    [key: string]: SchemaObjectTS
+  }
+  paths: {
+    [key: string]: {
+      [key: string]: SwaggerApiTS
+    }
+  }
 }
 
 export interface GenCodeResultTS {
@@ -161,7 +164,7 @@ export interface OptionsTS {
   serviceTemplate?: string
 
   // 自定义 service 模板变量
-  setServiceTemplateVariable?: () => ({[key: string]: any})
+  setServiceTemplateVariable?: () => ({ [key: string]: any })
 }
 
 

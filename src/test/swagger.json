@@ -1,0 +1,4515 @@
+{
+  "schemes": [],
+  "swagger": "2.0",
+  "info": {
+    "description": "这是一段描述",
+    "title": "星环开放接口",
+    "contact": {},
+    "license": {},
+    "version": "1.0.0"
+  },
+  "host": "",
+  "basePath": "",
+  "paths": {
+    "/api/portal/account/admin/login/": {
+      "post": {
+        "description": "管理员登录",
+        "summary": "管理员登录",
+        "tags": ["账户 | account"],
+        "operationId": "postApiPortalAccountAdminLogin",
+        "parameters": [
+          {
+            "description": "账号密码信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/account.UserLogin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/account/login/": {
+      "get": {
+        "description": "进行登陆",
+        "tags": ["账户 | account"],
+        "summary": "登陆",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "登陆后跳转的网站",
+            "name": "next",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/account/logout/": {
+      "get": {
+        "description": "退出登陆状态",
+        "tags": ["账户 | account"],
+        "summary": "退出登陆",
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/file/upload/": {
+      "post": {
+        "description": "上传文件",
+        "consumes": ["multipart/form-data"],
+        "tags": ["文件 | file"],
+        "summary": "上传文件",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "文件",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/file.UploadResult"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/batch_delete_user_messages/": {
+      "post": {
+        "description": "批量删除消息",
+        "tags": ["消息 | message"],
+        "summary": "批量删除消息",
+        "parameters": [
+          {
+            "description": "批量删除表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.BatchDelete"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/batch_mark_user_messages/": {
+      "post": {
+        "description": "批量标记已读消息",
+        "tags": ["消息 | message"],
+        "summary": "批量标记已读消息",
+        "parameters": [
+          {
+            "description": "批量标记表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.BatchMark"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/can_send/": {
+      "get": {
+        "description": "是否可以发送消息",
+        "tags": ["消息 | message"],
+        "summary": "是否可以发送消息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/types.BoolResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/create_and_send/": {
+      "post": {
+        "description": "创建并发送消息",
+        "tags": ["消息 | message"],
+        "summary": "创建并发送消息",
+        "parameters": [
+          {
+            "description": "创建并发送表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.CreateAndSend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.Send"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/delete_all_user_messages/": {
+      "post": {
+        "description": "删除全部消息",
+        "tags": ["消息 | message"],
+        "summary": "删除全部消息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/get_schedule_sends/": {
+      "get": {
+        "description": "获取定时任务列表",
+        "tags": ["消息 | message"],
+        "summary": "获取定时任务列表",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.Send"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/get_send_products/": {
+      "get": {
+        "description": "获取可以发送消息的产品",
+        "tags": ["消息 | message"],
+        "summary": "获取可以发送消息的产品",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/product.SimpleProduct"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/get_user_counts/": {
+      "get": {
+        "description": "获取发送的用户数量",
+        "tags": ["消息 | message"],
+        "summary": "获取发送的用户数量",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "用户类型",
+            "name": "send_user_type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "目标用户",
+            "name": "object_user",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.SendUserCountResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/mark_all_user_messages/": {
+      "post": {
+        "description": "删除全部消息",
+        "tags": ["消息 | message"],
+        "summary": "删除全部消息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/sends/": {
+      "get": {
+        "description": "获取发送消息列表",
+        "tags": ["消息 | message"],
+        "summary": "获取发送消息列表",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "标题",
+            "name": "content_title",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "产品pid",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "enum": ["notice", "service", "product", "marketing"],
+            "type": "string",
+            "description": "消息类别",
+            "name": "message_type",
+            "in": "query"
+          },
+          {
+            "enum": ["ready", "failed", "success"],
+            "type": "string",
+            "description": "状态",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,name同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.Send"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "创建消息",
+        "tags": ["消息 | message"],
+        "summary": "创建消息",
+        "parameters": [
+          {
+            "description": "消息创建表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.SendCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.Send"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/sends/{pk}/": {
+      "get": {
+        "description": "获取消息详情",
+        "tags": ["消息 | message"],
+        "summary": "获取消息详情",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.Send"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "更新消息",
+        "tags": ["消息 | message"],
+        "summary": "更新消息",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "消息更新表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.SendUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.Send"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "删除消息",
+        "tags": ["消息 | message"],
+        "summary": "删除消息",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.ReportResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/sends/{pk}/get_report/": {
+      "get": {
+        "description": "获取send的report",
+        "tags": ["消息 | message"],
+        "summary": "获取send的report",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.ReportResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/sends/{pk}/send/": {
+      "post": {
+        "description": "发送消息",
+        "tags": ["消息 | message"],
+        "summary": "发送消息",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.Send"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/sends/{pk}/update_effect_deadline/": {
+      "post": {
+        "description": "修改弹窗消息的生效时间",
+        "tags": ["消息 | message"],
+        "summary": "修改弹窗消息的生效时间",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "send id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "修改deadline表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.ContentUpdateWithSendId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/message.Send"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/test_send/": {
+      "post": {
+        "description": "发送测试消息",
+        "tags": ["消息 | message"],
+        "summary": "发送测试消息",
+        "parameters": [
+          {
+            "description": "消息测试表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/message.SendTest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/user_messages/": {
+      "get": {
+        "description": "获取用户消息",
+        "tags": ["消息 | message"],
+        "summary": "获取用户消息",
+        "parameters": [
+          {
+            "enum": ["has_read", "not_read"],
+            "type": "string",
+            "description": "状态",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "enum": ["notice", "service", "product", "marketing"],
+            "type": "string",
+            "description": "消息类型",
+            "name": "message_type",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "标题搜索",
+            "name": "content_title",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照平台搜索",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否是测试消息",
+            "name": "is_test",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "最近几秒的消息",
+            "name": "latest_message_in_second",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,name同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.UserMessage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/user_messages/get_ef_messages/": {
+      "get": {
+        "description": "获取啄木鸟消息详情",
+        "tags": ["消息 | message"],
+        "summary": "获取啄木鸟消息详情",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.UserMessage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/message/user_messages/{pk}/read/": {
+      "post": {
+        "description": "读取消息",
+        "tags": ["消息 | message"],
+        "summary": "读取消息",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "user message id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/message.UserMessage"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/bulk_binds/": {
+      "post": {
+        "description": "批量绑定角色",
+        "tags": ["权限 | permission"],
+        "summary": "批量绑定角色",
+        "parameters": [
+          {
+            "description": "角色权限批量绑定",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.PermissionBulkBindings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/create_permissions/": {
+      "post": {
+        "description": "批量创建权限",
+        "tags": ["权限 | permission"],
+        "summary": "批量创建权限",
+        "parameters": [
+          {
+            "description": "权限创建表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.PermissionBulkCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/get_permission_options/": {
+      "get": {
+        "description": "获取用户角色权限列表",
+        "tags": ["权限 | permission"],
+        "summary": "获取用户角色权限列表",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "权限名",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "是否为隐私权限",
+            "name": "is_private",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "产品pid",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "关联角色id",
+            "name": "role_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间大于此10位时间戳",
+            "name": "updated_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间小于此10位时间戳",
+            "name": "updated_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否绑定了角色",
+            "name": "is_bind_roles",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.PermissionOptions"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/get_role_options/": {
+      "get": {
+        "description": "获取角色过滤项",
+        "tags": ["权限 | permission"],
+        "summary": "获取角色过滤项",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "产品pid，此参数会过滤出该产品下所有的角色（包括通用角色）",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否是审核角色",
+            "name": "is_auditor",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "角色名",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "为true时表示通用角色",
+            "name": "is_public",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间大于此10位时间戳",
+            "name": "updated_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间小于此10位时间戳",
+            "name": "updated_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否绑定了权限",
+            "name": "is_bind_permissions",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.RoleOptions"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/permissions/": {
+      "get": {
+        "description": "获取权限信息",
+        "tags": ["权限 | permission"],
+        "summary": "获取权限信息",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "权限名",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "是否为隐私权限",
+            "name": "is_private",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "产品pid",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "关联角色id",
+            "name": "role_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间大于此10位时间戳",
+            "name": "updated_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间小于此10位时间戳",
+            "name": "updated_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否绑定了角色",
+            "name": "is_bind_roles",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "审批人",
+            "name": "granter",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,name同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.Permission"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "创建权限",
+        "tags": ["权限 | permission"],
+        "summary": "创建权限",
+        "parameters": [
+          {
+            "description": "权限创建表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.PermissionWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Permission"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/permissions/{pk}/": {
+      "put": {
+        "description": "更新权限",
+        "tags": ["权限 | permission"],
+        "summary": "更新权限",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "permission id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "权限更新表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.PermissionUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Permission"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "删除权限",
+        "tags": ["权限 | permission"],
+        "summary": "删除权限",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "permission id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/permission/permissions/{pk}/binds/": {
+      "post": {
+        "description": "绑定角色",
+        "tags": ["权限 | permission"],
+        "summary": "绑定角色",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "permission id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "角色绑定表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.RoleBinds"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Permission"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/roles/": {
+      "get": {
+        "description": "获取角色信息",
+        "tags": ["权限 | permission"],
+        "summary": "获取角色信息",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "产品pid，此参数会过滤出该产品下所有的角色（包括通用角色）",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "过滤出和product_pid有关的角色，只有通用角色绑定了本产品的权限点才有关",
+            "name": "product_pid_bind_perms",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否是审核角色",
+            "name": "is_auditor",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "角色名",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "为true时表示通用角色",
+            "name": "is_public",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间大于此10位时间戳",
+            "name": "updated_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "更新时间小于此10位时间戳",
+            "name": "updated_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "是否绑定了权限",
+            "name": "is_bind_permissions",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "审批人",
+            "name": "granter",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "过滤出已上线的产品的角色",
+            "name": "is_online",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,name同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.Role"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "创建角色",
+        "tags": ["权限 | permission"],
+        "summary": "创建角色",
+        "parameters": [
+          {
+            "description": "角色创建表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.RoleWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Role"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/roles/{pk}/": {
+      "put": {
+        "description": "更新角色",
+        "tags": ["权限 | permission"],
+        "summary": "更新角色",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "role id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "角色更新表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.RoleWrite"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Role"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "删除角色",
+        "tags": ["权限 | permission"],
+        "summary": "删除角色",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "role id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/permission/roles/{pk}/binds/": {
+      "post": {
+        "description": "绑定权限",
+        "tags": ["权限 | permission"],
+        "summary": "绑定权限",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "role id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "角色绑定表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.PermissionBindings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.Role"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/roles/{pk}/check/": {
+      "get": {
+        "description": "判断是否有角色",
+        "tags": ["权限 | permission"],
+        "summary": "判断是否有角色",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "role id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "node id",
+            "name": "node_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.CheckHasRoleResp"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/roles/{pk}/get_auditors/": {
+      "get": {
+        "description": "获取审批用户",
+        "tags": ["权限 | permission"],
+        "summary": "获取审批用户",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "roleid",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "description": "节点id",
+            "name": "node_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.GranterResult"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/user_permissions/": {
+      "get": {
+        "description": "删除权限",
+        "tags": ["权限 | permission"],
+        "summary": "获取用户的权限节点",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "product pid",
+            "name": "pid",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/permission/userroles/": {
+      "get": {
+        "description": "获取用户角色权限列表",
+        "tags": ["权限 | permission"],
+        "summary": "获取用户角色权限列表",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "权限的id,逗号分割",
+            "name": "role_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "false表示role不为空的角色",
+            "name": "role_is_null",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "授权类型,逗号分割",
+            "name": "grant_type",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "节点id",
+            "name": "node_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "用户名",
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "用户模糊搜索，可中文可英文",
+            "name": "user_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "审批人员",
+            "name": "approver",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "过期时间是否为空",
+            "name": "expires_is_null",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "创建时间大于或等于的时间戳,以秒为单位的时间戳",
+            "name": "created_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "创建时间小于或等于的的时间戳,以秒为单位的时间戳",
+            "name": "created_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照权限进行搜索",
+            "name": "permission",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照产品pid进行过滤",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "如果是权限清算，请把此参数设置为true",
+            "name": "is_audit",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,name同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.Permission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/approve_callback/": {
+      "get": {
+        "description": "权限批准callback",
+        "tags": ["权限 | permission"],
+        "summary": "权限批准callback",
+        "parameters": [
+          {
+            "description": "权限批准回调",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.ApproveCallback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/permission/userroles/approve_callback/onSave": {
+      "post": {
+        "description": "权限保存callback",
+        "tags": ["权限 | permission"],
+        "summary": "权限保存callback",
+        "parameters": [
+          {
+            "description": "权限保存回调",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.ApproveCallback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/permission/userroles/bulk_delete/": {
+      "post": {
+        "description": "批量删除用户权限",
+        "tags": ["权限 | permission"],
+        "summary": "批量删除用户权限",
+        "parameters": [
+          {
+            "description": "用户权限id数组",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.UserRoleBulkDelete"
+            }
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/permission/userroles/can_grant/": {
+      "get": {
+        "description": "判断是否可以授权",
+        "tags": ["权限 | permission"],
+        "summary": "判断是否可以授权",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.canGrantResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/get_grantable_nodes/": {
+      "get": {
+        "description": "根据给定的节点获取可以主动授予的角色",
+        "tags": ["权限 | permission"],
+        "summary": "获取可以主动授予的业务节点",
+        "parameters": [
+          {
+            "enum": ["common", "role", "permission"],
+            "type": "string",
+            "description": "类型",
+            "name": "type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "description": "切换到服务树改动后的结构",
+            "name": "_new",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/tree.Node"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/get_grantable_permissions/": {
+      "get": {
+        "description": "根据给定的节点获取可以主动授予的权限",
+        "tags": ["权限 | permission"],
+        "summary": "获取可以主动授予的权限",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "节点id",
+            "name": "node_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.Permission"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/get_grantable_roles/": {
+      "get": {
+        "description": "根据给定的节点获取可以主动授予的角色",
+        "tags": ["权限 | permission"],
+        "summary": "获取可以主动授予的角色",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "节点id",
+            "name": "node_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "enum": ["common", "role"],
+            "type": "string",
+            "description": "类型",
+            "name": "type",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/permission.Role"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/get_options/": {
+      "get": {
+        "description": "获取用户角色权限列表",
+        "tags": ["权限 | permission"],
+        "summary": "获取用户角色权限列表",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "权限的id",
+            "name": "role_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "节点id",
+            "name": "node_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "用户名",
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "审批人员",
+            "name": "approver",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "创建时间大于或等于的时间戳,以秒为单位的时间戳",
+            "name": "created_at_gte",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "创建时间小于或等于的的时间戳,以秒为单位的时间戳",
+            "name": "created_at_lte",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照权限进行搜索",
+            "name": "permission",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照产品pid进行过滤",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "如果是权限清算，请把此参数设置为true",
+            "name": "is_audit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/permission.UserOptions"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/permission/userroles/grant/": {
+      "post": {
+        "description": "主动授权",
+        "tags": ["权限 | permission"],
+        "summary": "主动授权",
+        "parameters": [
+          {
+            "description": "主动授权内容",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/permission.UserRoleGrantData"
+            }
+          }
+        ],
+        "responses": {
+          "200": {}
+        }
+      }
+    },
+    "/api/portal/permission/userroles/{pk}/": {
+      "delete": {
+        "description": "删除用户权限",
+        "tags": ["权限 | permission"],
+        "summary": "删除用户权限",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "permission id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/product/access/": {
+      "get": {
+        "description": "获取用户最近访问或搜索的产品",
+        "tags": ["产品 | product"],
+        "summary": "获取用户最近访问或搜索的产品",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "访问类型，access或search",
+            "name": "type",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,namer同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "-last_visited",
+            "description": "需要排序的字段，如last_visited按照last_visited正序排列,-last_visited按照last_visited反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/product.Access"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/admin_bulk/": {
+      "put": {
+        "description": "批量更新产品的状态或者推广",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "管理员批量更新",
+        "parameters": [
+          {
+            "description": "待更新信息",
+            "name": "req",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductAdminBulkUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          },
+          "999": {
+            "description": "不用管这个返回,占位使用",
+            "schema": {
+              "$ref": "#/definitions/product.ProductAdminUpdateId"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/catalogs/": {
+      "get": {
+        "description": "获取产品目录列表",
+        "tags": ["产品 | product"],
+        "summary": "获取产品目录列表",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,namer同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如order按照order正序排列,-order按照order反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/product.Catalog"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "创建产品目录",
+        "tags": ["产品 | product"],
+        "summary": "创建产品目录",
+        "parameters": [
+          {
+            "description": "目录数组",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.CatalogCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Catalog"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/catalogs/{pk}/": {
+      "put": {
+        "description": "更新目录",
+        "tags": ["产品 | product"],
+        "summary": "更新目录",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "catalog id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "目录更新表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.CatalogUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Catalog"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "目录删除",
+        "tags": ["产品 | product"],
+        "summary": "目录删除",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "catalog id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/product/catalogs/{pk}/set_order/": {
+      "post": {
+        "description": "按照顺序给产品的id",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "设置分组里产品的顺序",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "catalog id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "需要排序的产品id数组",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/is_admin/": {
+      "get": {
+        "description": "是否是管理员",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "是否是管理员",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "product pid",
+            "name": "pid",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.isAdminResult"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/": {
+      "get": {
+        "description": "获取产品列表",
+        "tags": ["产品 | product"],
+        "summary": "获取产品列表",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "按照name过滤，模糊匹配",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照name过滤,列表匹配，多个名字逗号分割",
+            "name": "name_list",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照pid过滤,列表匹配，多个名字逗号分割",
+            "name": "pids",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照owner过滤",
+            "name": "owner",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照applicant过滤",
+            "name": "applicant",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "按照catalog id过滤",
+            "name": "catalog_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "按照白名单过滤,输入用户名",
+            "name": "white_list",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "description": "大于1代表只过滤推荐的产品",
+            "name": "recommend_order",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "只过滤自己是管理员或者负责人的产品",
+            "name": "is_admin",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "true代表全部开放，false代表白名单开放",
+            "name": "is_public",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "只过滤自己是管理员、负责人，如果是halo管理员，则不进行过滤",
+            "name": "is_admin_or_superuser",
+            "in": "query"
+          },
+          {
+            "enum": ["auditing", "online", "offline"],
+            "type": "string",
+            "description": "按照状态过滤",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如入name,owner同时搜索name和owner",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如order按照order正序排列,-order按照order反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/product.Product"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "创建产品",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "创建产品",
+        "parameters": [
+          {
+            "description": "产品元信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}": {
+      "delete": {
+        "description": "删除产品",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "删除产品",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {}
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}/": {
+      "get": {
+        "description": "获取产品详情",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "获取产品详情",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "更新产品元信息",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "更新产品元信息",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "产品元信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductWrite"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "只传入想更新的参数即可",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "更新部分参数",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "待更新信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}/admin/": {
+      "put": {
+        "description": "更新产品的状态或者推广",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "管理员更新",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "待更新信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductAdminUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "只传入想更新的参数即可",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "管理员更新部分参数",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "待更新信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductAdminPatch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}/callback/": {
+      "post": {
+        "description": "用户通过浏览或者搜索产品后回掉此接口",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "用户进入产品回调",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "需要上报的内容",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductCallback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}/deprecate/": {
+      "post": {
+        "description": "弃用产品",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "弃用产品",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/products/{pk}/transfer/": {
+      "post": {
+        "description": "移交系统给新的负责人",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "移交系统",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "product id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "移交信息表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductTransfer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Product"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/set_catalogs_order/": {
+      "post": {
+        "description": "目录排序",
+        "tags": ["产品 | product"],
+        "summary": "目录排序",
+        "parameters": [
+          {
+            "description": "目录更新表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.CatalogOrders"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/set_orders/": {
+      "post": {
+        "description": "按照顺序给产品的id",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "批量设置分组里产品的顺序",
+        "parameters": [
+          {
+            "description": "需要排序的组和产品",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductBulkOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/set_recommendation/": {
+      "post": {
+        "description": "按顺序传入需要推荐的产品",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "设置推荐的产品",
+        "parameters": [
+          {
+            "description": "需要推荐的产品id数组",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.ProductRecommend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/stars/": {
+      "get": {
+        "description": "获取用户收藏的产品",
+        "tags": ["产品 | product"],
+        "summary": "获取用户收藏",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "需要排序的字段，如order按照order正序排列,-order按照order反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/product.Star"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "加入收藏",
+        "tags": ["产品 | product"],
+        "summary": "加入收藏",
+        "parameters": [
+          {
+            "description": "产品元信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.StarCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Star"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/stars/set_order/": {
+      "post": {
+        "description": "设置收藏的顺序",
+        "produces": ["application/json"],
+        "tags": ["产品 | product"],
+        "summary": "设置收藏的顺序",
+        "parameters": [
+          {
+            "description": "需要排序的star id数组",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/product.StarOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/product/stars/{pk}/": {
+      "delete": {
+        "description": "删除收藏",
+        "tags": ["产品 | product"],
+        "summary": "删除收藏",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "star id",
+            "name": "pk",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "成功信息",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/product.Star"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/tree/node_stars/": {
+      "get": {
+        "description": "获取默认节点",
+        "tags": ["树操作 | tree"],
+        "summary": "获取默认节点",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "产品pid",
+            "name": "product_pid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "权限pid",
+            "name": "permission_pid",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "使用search时，需要搜索的字段，例如id,namer同时搜索id和name",
+            "name": "_search_fields",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要搜索的值，例如ksp,当不设置_search_fields，此参数无效",
+            "name": "_search",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "需要排序的字段，如order按照order正序排列,-order按照order反序",
+            "name": "order",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/tree.NodeStar"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "设置默认节点",
+        "tags": ["树操作 | tree"],
+        "summary": "设置默认节点",
+        "parameters": [
+          {
+            "description": "节点收藏表单",
+            "name": "param",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/tree.NodeStarCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/tree.Node"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/tree/nodes/": {
+      "get": {
+        "description": "获取所有节点",
+        "tags": ["树操作 | tree"],
+        "summary": "获取所有节点",
+        "parameters": [
+          {
+            "type": "boolean",
+            "description": "切换到服务树改动后的结构",
+            "name": "_new",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/tree.Node"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/user/profile/": {
+      "get": {
+        "description": "或取当前登录用户信息并返回",
+        "tags": ["用户 | user"],
+        "summary": "获取当前用户信息",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/auth.User"
+            }
+          }
+        }
+      }
+    },
+    "/api/portal/user/users/": {
+      "get": {
+        "description": "获取用户信息",
+        "tags": ["用户 | user"],
+        "summary": "获取用户信息",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "用户名",
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "type": "boolean",
+            "description": "精确搜索，默认为false",
+            "name": "extract",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "同时返回多个用户名信息，逗号进行分割，注意url长度不要超过限制 ",
+            "name": "usernames",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 10,
+            "description": "分页查询,如果设置了，则返回数据格式为{total:0,results:[]}",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "分页查询偏移量",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user.User"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "account.UserLogin": {
+      "type": "object",
+      "required": ["password", "username"],
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "auth.User": {
+      "type": "object",
+      "properties": {
+        "adUserId": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "departments": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "deptNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_dpvs_admin": {
+          "description": "是否是dpvs管理员",
+          "type": "boolean"
+        },
+        "is_superuser": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "wxUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "file.UploadResult": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "message.BatchDelete": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "message.BatchMark": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "message.Content": {
+      "type": "object",
+      "properties": {
+        "content_text": {
+          "type": "string"
+        },
+        "content_title": {
+          "type": "string"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "effect_deadline": {
+          "type": "integer"
+        },
+        "is_test": {
+          "type": "boolean"
+        },
+        "message_type": {
+          "type": "string"
+        },
+        "product": {
+          "type": "object",
+          "$ref": "#/definitions/product.Product"
+        },
+        "product_pid": {
+          "type": "string"
+        },
+        "reach_type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "message.ContentCreate": {
+      "type": "object",
+      "required": [
+        "content_text",
+        "content_title",
+        "content_type",
+        "message_type",
+        "product_pid",
+        "reach_type"
+      ],
+      "properties": {
+        "content_text": {
+          "type": "string",
+          "example": "测试消息文本"
+        },
+        "content_title": {
+          "type": "string",
+          "example": "测试消息标题"
+        },
+        "content_type": {
+          "type": "string",
+          "example": "rich_text"
+        },
+        "effect_deadline": {
+          "type": "integer",
+          "example": 0
+        },
+        "message_type": {
+          "type": "string",
+          "example": "notice"
+        },
+        "product_pid": {
+          "type": "string",
+          "example": "halo"
+        },
+        "reach_type": {
+          "type": "string",
+          "example": "default"
+        }
+      }
+    },
+    "message.ContentUpdateWithSendId": {
+      "type": "object",
+      "properties": {
+        "effect_deadline": {
+          "type": "integer"
+        },
+        "is_cancel": {
+          "type": "boolean"
+        }
+      }
+    },
+    "message.CreateAndSend": {
+      "type": "object",
+      "required": [
+        "object_user",
+        "send_channel",
+        "send_type",
+        "send_user_type"
+      ],
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.ContentCreate"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "object_user": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "order_time": {
+          "type": "integer",
+          "example": 0
+        },
+        "send_channel": {
+          "type": "string",
+          "example": "inside_mail"
+        },
+        "send_type": {
+          "type": "string",
+          "example": "now"
+        },
+        "send_user_type": {
+          "type": "string",
+          "example": "user"
+        }
+      }
+    },
+    "message.ReportResult": {
+      "type": "object",
+      "properties": {
+        "total_count": {
+          "type": "integer"
+        },
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/message.ReportResultUnit"
+          }
+        }
+      }
+    },
+    "message.ReportResultUnit": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "has_read_count": {
+          "type": "integer"
+        },
+        "not_read_count": {
+          "type": "integer"
+        },
+        "real_read_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "message.Send": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.Content"
+        },
+        "create_user": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "failed_channel": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "object_user": {
+          "type": "string"
+        },
+        "order_time": {
+          "description": "13位时间戳",
+          "type": "integer"
+        },
+        "send_at": {
+          "type": "string"
+        },
+        "send_channel": {
+          "type": "string"
+        },
+        "send_type": {
+          "type": "string"
+        },
+        "send_user": {
+          "type": "string"
+        },
+        "send_user_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "update_user": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "message.SendCreate": {
+      "type": "object",
+      "required": [
+        "object_user",
+        "send_channel",
+        "send_type",
+        "send_user_type"
+      ],
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.ContentCreate"
+        },
+        "object_user": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "order_time": {
+          "type": "integer",
+          "example": 0
+        },
+        "send_channel": {
+          "type": "string",
+          "example": "inside_mail"
+        },
+        "send_type": {
+          "type": "string",
+          "example": "now"
+        },
+        "send_user_type": {
+          "type": "string",
+          "example": "user"
+        }
+      }
+    },
+    "message.SendCreateBase": {
+      "type": "object",
+      "required": [
+        "object_user",
+        "send_channel",
+        "send_type",
+        "send_user_type"
+      ],
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.ContentCreate"
+        },
+        "object_user": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "order_time": {
+          "type": "integer",
+          "example": 0
+        },
+        "send_channel": {
+          "type": "string",
+          "example": "inside_mail"
+        },
+        "send_type": {
+          "type": "string",
+          "example": "now"
+        },
+        "send_user_type": {
+          "type": "string",
+          "example": "user"
+        }
+      }
+    },
+    "message.SendTest": {
+      "type": "object",
+      "required": ["test_users"],
+      "properties": {
+        "send": {
+          "type": "object",
+          "$ref": "#/definitions/message.SendCreate"
+        },
+        "test_users": {
+          "type": "string"
+        }
+      }
+    },
+    "message.SendUpdate": {
+      "type": "object",
+      "required": [
+        "object_user",
+        "send_channel",
+        "send_type",
+        "send_user_type"
+      ],
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.ContentCreate"
+        },
+        "object_user": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "order_time": {
+          "type": "integer",
+          "example": 0
+        },
+        "send_channel": {
+          "type": "string",
+          "example": "inside_mail"
+        },
+        "send_type": {
+          "type": "string",
+          "example": "now"
+        },
+        "send_user_type": {
+          "type": "string",
+          "example": "user"
+        }
+      }
+    },
+    "message.SendUserCountResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        }
+      }
+    },
+    "message.UserMessage": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "object",
+          "$ref": "#/definitions/message.Content"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "read_op": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.Action": {
+      "type": "object",
+      "properties": {
+        "actName": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.ApproveCallback": {
+      "type": "object",
+      "properties": {
+        "entity": {
+          "type": "object",
+          "$ref": "#/definitions/permission.Entity"
+        },
+        "entityData": {
+          "type": "object",
+          "$ref": "#/definitions/permission.EntityData"
+        },
+        "handler": {
+          "type": "string"
+        },
+        "nextAct": {
+          "type": "object",
+          "$ref": "#/definitions/permission.Action"
+        }
+      }
+    },
+    "permission.CheckHasRoleResp": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "permission.Entity": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "integer"
+        },
+        "draftUid": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.EntityData": {
+      "type": "object",
+      "properties": {
+        "expires": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "role_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "permission.GranterResult": {
+      "type": "object",
+      "properties": {
+        "role_name": {
+          "type": "string"
+        },
+        "tree_path": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "$ref": "#/definitions/user.User"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.Permission": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "pid": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.PermissionBindings": {
+      "type": "object",
+      "required": ["permission_ids", "product_pid"],
+      "properties": {
+        "permission_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "product_pid": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.PermissionBulkBindings": {
+      "type": "object",
+      "properties": {
+        "permissionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "roleIds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "permission.PermissionBulkCreate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["intro", "is_private", "name", "pid", "product_pid"],
+        "properties": {
+          "grant_type": {
+            "type": "string"
+          },
+          "granter": {
+            "type": "string"
+          },
+          "intro": {
+            "type": "string",
+            "example": "这是第一个测试权限"
+          },
+          "is_private": {
+            "type": "boolean",
+            "example": false
+          },
+          "name": {
+            "type": "string",
+            "example": "测试权限1"
+          },
+          "pid": {
+            "type": "string",
+            "example": "test1"
+          },
+          "product_pid": {
+            "type": "string",
+            "example": "ksp"
+          }
+        }
+      }
+    },
+    "permission.PermissionOptions": {
+      "type": "object",
+      "properties": {
+        "granters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "permission.PermissionUpdate": {
+      "type": "object",
+      "required": ["intro", "is_private", "name"],
+      "properties": {
+        "grant_type": {
+          "type": "string",
+          "example": "role"
+        },
+        "granter": {
+          "type": "string",
+          "example": "rd-admin"
+        },
+        "intro": {
+          "type": "string",
+          "example": "这是第一个测试权限"
+        },
+        "is_private": {
+          "type": "boolean",
+          "example": false
+        },
+        "name": {
+          "type": "string",
+          "example": "测试权限1"
+        }
+      }
+    },
+    "permission.PermissionWrite": {
+      "type": "object",
+      "required": ["intro", "is_private", "name", "pid", "product_pid"],
+      "properties": {
+        "grant_type": {
+          "type": "string"
+        },
+        "granter": {
+          "type": "string"
+        },
+        "intro": {
+          "type": "string",
+          "example": "这是第一个测试权限"
+        },
+        "is_private": {
+          "type": "boolean",
+          "example": false
+        },
+        "name": {
+          "type": "string",
+          "example": "测试权限1"
+        },
+        "pid": {
+          "type": "string",
+          "example": "test1"
+        },
+        "product_pid": {
+          "type": "string",
+          "example": "ksp"
+        }
+      }
+    },
+    "permission.Role": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "grant_type": {
+          "type": "string"
+        },
+        "granter": {
+          "type": "string"
+        },
+        "granters": {
+          "type": "object"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "is_auditor": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/permission.Permission"
+          }
+        },
+        "product": {
+          "type": "object",
+          "$ref": "#/definitions/product.Product"
+        },
+        "product_pid": {
+          "type": "string"
+        },
+        "update_person": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.RoleBinds": {
+      "type": "array",
+      "items": {}
+    },
+    "permission.RoleOptions": {
+      "type": "object",
+      "properties": {
+        "granters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "permission.RoleWrite": {
+      "type": "object",
+      "required": ["name", "product_pid"],
+      "properties": {
+        "grant_type": {
+          "type": "string"
+        },
+        "granter": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "example": "test1"
+        },
+        "permission_ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "product_pid": {
+          "type": "string",
+          "example": "ksp"
+        }
+      }
+    },
+    "permission.UserOptions": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tree.Node"
+          }
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/product.Product"
+          }
+        },
+        "roles": {
+          "type": "string"
+        }
+      }
+    },
+    "permission.UserRoleBulkDelete": {
+      "type": "array",
+      "items": {}
+    },
+    "permission.UserRoleGrantData": {
+      "type": "object",
+      "properties": {
+        "expires": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "integer"
+        },
+        "permission_id": {
+          "type": "integer"
+        },
+        "role_id": {
+          "type": "integer"
+        },
+        "usernames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "permission.canGrantResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "product.Access": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "last_visited": {
+          "type": "string"
+        },
+        "product": {
+          "type": "object",
+          "$ref": "#/definitions/product.Product"
+        },
+        "type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "product.Catalog": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "order": {
+          "description": "排序影响展示的顺序",
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "product.CatalogCreate": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "product.CatalogOrders": {
+      "type": "object",
+      "required": ["ids"],
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "product.CatalogUpdate": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "product.Product": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "admin_objs": {
+          "type": "string"
+        },
+        "applicant": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "applicant_obj": {
+          "type": "string"
+        },
+        "approver": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "approver_obj": {
+          "type": "string"
+        },
+        "catalog": {
+          "type": "object",
+          "$ref": "#/definitions/product.Catalog"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "home_url": {
+          "type": "string",
+          "example": "https://ksp.corp.kuaishou.com"
+        },
+        "icon": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "intro": {
+          "type": "string",
+          "example": "ksp平台是快手服务管理平台，具有CI、CD"
+        },
+        "is_deprecated": {
+          "type": "boolean",
+          "example": false
+        },
+        "kim_access_token": {
+          "type": "string"
+        },
+        "link_type": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "name": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "order": {
+          "description": "排序影响展示的顺序",
+          "type": "integer",
+          "example": 1
+        },
+        "owner": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "owner_objs": {
+          "type": "string"
+        },
+        "pid": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "popularizes": {
+          "type": "string",
+          "example": "hot"
+        },
+        "recommend_order": {
+          "description": "推荐值，",
+          "type": "integer",
+          "example": 1
+        },
+        "scene": {
+          "type": "string",
+          "example": "提供CI、CD等功能"
+        },
+        "status": {
+          "type": "string",
+          "example": "online"
+        },
+        "update_person": {
+          "type": "string",
+          "example": "zhusichuang"
+        },
+        "update_person_obj": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "white_list": {
+          "type": "string",
+          "example": "all"
+        },
+        "wiki": {
+          "type": "string",
+          "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+        }
+      }
+    },
+    "product.ProductAdminBulkUpdate": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "admin": {
+            "type": "string",
+            "example": "wuhongbin,yanlong"
+          },
+          "catalog_id": {
+            "type": "integer"
+          },
+          "home_url": {
+            "type": "string",
+            "example": "https://ksp.corp.kuaishou.com"
+          },
+          "icon": {
+            "type": "string",
+            "example": "https://cdn.corp.kuaishou.com/xxx"
+          },
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "intro": {
+            "type": "string",
+            "example": "ksp平台是快手服务管理平台，具有CI、CD"
+          },
+          "kim_access_token": {
+            "type": "string"
+          },
+          "link_type": {
+            "type": "string",
+            "example": "href"
+          },
+          "logo": {
+            "type": "string",
+            "example": "https://cdn.corp.kuaishou.com/xxx"
+          },
+          "name": {
+            "type": "string",
+            "example": "ksp"
+          },
+          "owner": {
+            "type": "string",
+            "example": "wuhongbin,yanlong"
+          },
+          "popularizes": {
+            "type": "string",
+            "example": "hot"
+          },
+          "scene": {
+            "type": "string",
+            "example": "提供CI、CD等功能"
+          },
+          "status": {
+            "type": "string",
+            "example": "online"
+          },
+          "white_list": {
+            "type": "string",
+            "example": "all"
+          },
+          "wiki": {
+            "type": "string",
+            "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+          }
+        }
+      }
+    },
+    "product.ProductAdminPatch": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "product.ProductAdminUpdate": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "catalog_id": {
+          "type": "integer"
+        },
+        "home_url": {
+          "type": "string",
+          "example": "https://ksp.corp.kuaishou.com"
+        },
+        "icon": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "intro": {
+          "type": "string",
+          "example": "ksp平台是快手服务管理平台，具有CI、CD"
+        },
+        "kim_access_token": {
+          "type": "string"
+        },
+        "link_type": {
+          "type": "string",
+          "example": "href"
+        },
+        "logo": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "name": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "owner": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "popularizes": {
+          "type": "string",
+          "example": "hot"
+        },
+        "scene": {
+          "type": "string",
+          "example": "提供CI、CD等功能"
+        },
+        "status": {
+          "type": "string",
+          "example": "online"
+        },
+        "white_list": {
+          "type": "string",
+          "example": "all"
+        },
+        "wiki": {
+          "type": "string",
+          "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+        }
+      }
+    },
+    "product.ProductAdminUpdateId": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "catalog_id": {
+          "type": "integer"
+        },
+        "home_url": {
+          "type": "string",
+          "example": "https://ksp.corp.kuaishou.com"
+        },
+        "icon": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "intro": {
+          "type": "string",
+          "example": "ksp平台是快手服务管理平台，具有CI、CD"
+        },
+        "kim_access_token": {
+          "type": "string"
+        },
+        "link_type": {
+          "type": "string",
+          "example": "href"
+        },
+        "logo": {
+          "type": "string",
+          "example": "https://cdn.corp.kuaishou.com/xxx"
+        },
+        "name": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "owner": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "popularizes": {
+          "type": "string",
+          "example": "hot"
+        },
+        "scene": {
+          "type": "string",
+          "example": "提供CI、CD等功能"
+        },
+        "status": {
+          "type": "string",
+          "example": "online"
+        },
+        "white_list": {
+          "type": "string",
+          "example": "all"
+        },
+        "wiki": {
+          "type": "string",
+          "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+        }
+      }
+    },
+    "product.ProductBulkOrder": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "catalog_id": {
+            "type": "integer"
+          },
+          "product_id": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "product.ProductCallback": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "product.ProductCreate": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "catalog_id": {
+          "type": "integer"
+        },
+        "home_url": {
+          "type": "string",
+          "example": "https://ksp.corp.kuaishou.com"
+        },
+        "intro": {
+          "type": "string",
+          "example": "ksp平台是快手服务管理平台，具有CI、CD"
+        },
+        "kim_access_token": {
+          "type": "string"
+        },
+        "link_type": {
+          "type": "string",
+          "example": "href"
+        },
+        "name": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "owner": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "pid": {
+          "type": "string",
+          "example": "部署平台"
+        },
+        "scene": {
+          "type": "string",
+          "example": "提供CI、CD等功能"
+        },
+        "white_list": {
+          "type": "string",
+          "example": "all"
+        },
+        "wiki": {
+          "type": "string",
+          "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+        }
+      }
+    },
+    "product.ProductOrder": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "product.ProductPatch": {
+      "type": "object",
+      "additionalProperties": {}
+    },
+    "product.ProductRecommend": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "product.ProductTransfer": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string"
+        }
+      }
+    },
+    "product.ProductWrite": {
+      "type": "object",
+      "properties": {
+        "admin": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "catalog_id": {
+          "type": "integer"
+        },
+        "home_url": {
+          "type": "string",
+          "example": "https://ksp.corp.kuaishou.com"
+        },
+        "intro": {
+          "type": "string",
+          "example": "ksp平台是快手服务管理平台，具有CI、CD"
+        },
+        "kim_access_token": {
+          "type": "string"
+        },
+        "link_type": {
+          "type": "string",
+          "example": "href"
+        },
+        "name": {
+          "type": "string",
+          "example": "ksp"
+        },
+        "owner": {
+          "type": "string",
+          "example": "wuhongbin,yanlong"
+        },
+        "scene": {
+          "type": "string",
+          "example": "提供CI、CD等功能"
+        },
+        "white_list": {
+          "type": "string",
+          "example": "all"
+        },
+        "wiki": {
+          "type": "string",
+          "example": "https://wiki.corp.kuaishou.com/pages/viewpage.action?pageId=15436602"
+        }
+      }
+    },
+    "product.SimpleProduct": {
+      "type": "object",
+      "properties": {
+        "has_kim_access_token": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pid": {
+          "type": "string"
+        }
+      }
+    },
+    "product.Star": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "deleted_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "order": {
+          "description": "排序影响展示的顺序",
+          "type": "integer",
+          "example": 1
+        },
+        "product": {
+          "type": "object",
+          "$ref": "#/definitions/product.Product"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "product.StarCreate": {
+      "type": "object",
+      "required": ["product_id"],
+      "properties": {
+        "product_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "product.StarOrder": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "product.isAdminResult": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "tree.Node": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "level": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parent_id": {
+          "type": "integer"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "tree.NodeStar": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "node_id": {
+          "type": "integer"
+        },
+        "permission_pid": {
+          "type": "string"
+        },
+        "product_pid": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "tree.NodeStarCreate": {
+      "type": "object",
+      "required": ["node_id", "product_pid"],
+      "properties": {
+        "node_id": {
+          "type": "integer"
+        },
+        "permission_pid": {
+          "type": "string"
+        },
+        "product_pid": {
+          "type": "string"
+        }
+      }
+    },
+    "types.BoolResult": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean"
+        }
+      }
+    },
+    "user.User": {
+      "type": "object",
+      "properties": {
+        "adUserId": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "departments": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "deptNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "wxUserId": {
+          "type": "string"
+        }
+      }
+    },
+    "utils.MessageResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}
