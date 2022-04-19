@@ -1,19 +1,20 @@
 {
   "paths": {
-    "/api/portal/account/admin/login/": {
+    "/api/portal/message/batch_delete_user_messages/": {
       "post": {
-        "description": "登录",
-        "summary": "登录",
-        "tags": ["账户 | account"],
-        "consumes": ["multipart/form-data"],
-        "operationId": "postApiPortalAccountAdminLogin",
+        "description": "批量删除消息",
+        "tags": ["消息 | message"],
+        "summary": "批量删除消息",
         "parameters": [
           {
-            "type": "file",
-            "description": "文件",
-            "name": "file",
-            "in": "formData",
-            "required": true
+            "description": "批量删除表单",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/Order"
+            }
           },
           {
             "type": "integer",
@@ -36,37 +37,16 @@
               "$ref": "#/definitions/utils.MessageResponse"
             }
           },
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/utils.MessageResponse"
+            }
+          },
           "304": {
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/tree.NodeStarCreate"
-            }
-          }
-        }
-      }
-    },
-    "/api/portal/message/batch_delete_user_messages/": {
-      "post": {
-        "description": "批量删除消息",
-        "tags": ["消息 | message"],
-        "summary": "批量删除消息",
-        "parameters": [
-          {
-            "description": "批量删除表单",
-            "name": "param",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "$ref": "#/definitions/message.BatchDelete"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/utils.MessageResponse"
             }
           }
         }
@@ -85,6 +65,38 @@
   },
   "swagger": "2.0",
   "definitions": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "petId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "Order Status",
+          "enum": ["placed", "approved", "delivered"]
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      },
+      "xml": {
+        "name": "Order"
+      }
+    },
     "account.UserLogin": {
       "type": "object",
       "required": ["password", "username"],

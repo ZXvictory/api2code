@@ -1,3 +1,5 @@
+// import jsonToJsonSchema from "to-json-schema";
+
 export interface SwaggerJsonTS {
   swagger: string
   info: SwaggerInfoTS
@@ -150,9 +152,8 @@ export interface GenCodeResultTS {
 }
 
 export const enum genListEnum {
-  api,
-  ts,
-  service
+  ts = 'ts',
+  service = 'service'
 }
 
 export interface TSOptionTS {
@@ -162,8 +163,8 @@ export interface TSOptionTS {
 
 export interface OptionsTS {
   // 源数据路径
-  originDataPath?: string 
-  
+  originDataPath?: string
+
   // 自定义 ts interface 名称
   setTSInterfaceName?: () => string
 
@@ -176,6 +177,11 @@ export interface OptionsTS {
 
 
 export enum JsonTypeEnum {
-  json,
-  jsonSchema
+  json = 'json',
+  jsonSchema = 'jsonSchema'
+}
+
+
+export interface ObjectValueTS {
+  [key: string]: any
 }

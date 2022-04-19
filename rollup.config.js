@@ -2,6 +2,20 @@ import typescript from "rollup-plugin-typescript";
 import sourceMaps from "rollup-plugin-sourcemaps";
 import hashbang from "rollup-plugin-hashbang";
 import { uglify } from "rollup-plugin-uglify";
+import commonjs from 'rollup-plugin-commonjs';
+
+const commonPlugins = [
+  typescript({
+    exclude: "node_modules/**",
+    typescript: require("typescript"),
+  }),
+  sourceMaps(),
+  uglify(),
+  hashbang(),
+  commonjs({
+    include: 'node_modules/**',  // Default: undefined
+  })
+]
 
 export default [
   {
@@ -13,15 +27,7 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [
-      typescript({
-        exclude: "node_modules/**",
-        typescript: require("typescript"),
-      }),
-      sourceMaps(),
-      uglify(),
-      hashbang(),
-    ],
+    plugins: commonPlugins,
   },
   {
     input: "./src/open.ts",
@@ -32,14 +38,6 @@ export default [
         sourcemap: true,
       },
     ],
-    plugins: [
-      typescript({
-        exclude: "node_modules/**",
-        typescript: require("typescript"),
-      }),
-      sourceMaps(),
-      uglify(),
-      hashbang(),
-    ],
+    plugins: commonPlugins
   },
 ];

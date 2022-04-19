@@ -1,33 +1,47 @@
 #!/usr/bin/env node
+import { Command } from 'commander';
 import { genListEnum, SwaggerJsonTS, GenCodeResultTS, OptionsTS } from './types/index';
-import { parseSwagger } from './parseSwagger';
+import { parseSwagger } from './utils/parseSwagger';
 import { genTS } from './genTS';
 import { genService } from './genService';
 
 
-/**
- * 生成代码
- *
- * @param {SwaggerJsonTS} swagger 接收 json、ymal 格式的数据
- * @param {genListEnum} genList
- * @return {*}  {GenCodeResultTS}
- */
-export const swaggerGenCode = async (swagger: SwaggerJsonTS, genList: genListEnum[] = [], options: OptionsTS = {}): Promise<GenCodeResultTS> => {
-  let ts,service;
+console.log(1111);
 
-  const apiInfo = await parseSwagger(swagger);
 
-  if (genList.includes(genListEnum.ts)) {
-    ts = genTS(apiInfo, options);
-  }
+const program = new Command();
 
-  if (genList.includes(genListEnum.service)) {
-    service = genService(apiInfo, options);
-  }
+program.version('1.0.0')
 
-  const result = {
-    apiInfo
-  }
+program
+  .command('clone <source> [destination]')
+  .description('clone a repository into a newly created directory')
+  .action((source, destination) => {
+    console.log('clone command called');
+  });
 
-  return Object.assign(result, ts ? {ts} : {}, service ? {service}: {});
-}
+// /**
+//  * 生成代码
+//  *
+//  * @param {SwaggerJsonTS} swagger 接收 json、ymal 格式的数据
+//  * @param {genListEnum} genList
+//  * @return {*}  {GenCodeResultTS}
+//  */
+// export const swaggerGenCode = async (swagger: SwaggerJsonTS, genList: genListEnum[] = [], options: OptionsTS = {}): Promise<GenCodeResultTS> => {
+//   let ts,service;
+
+//   const apiInfo = await parseSwagger(swagger);
+
+//   if (genList.includes(genListEnum.ts)) {
+//     ts = genTS(apiInfo, options);
+//   }
+
+//   if (genList.includes(genListEnum.service)) {
+//     service = genService(apiInfo, options);
+//   }
+
+
+//   const result = Object.assign({apiInfo}, ts ? {ts} : {}, service ? {service}: {});
+
+//   return result;
+// }

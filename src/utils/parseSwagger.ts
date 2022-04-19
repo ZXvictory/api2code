@@ -18,11 +18,13 @@ const getResponseList = (api: SwaggerApiTS) => {
 }
 
 // 获取请求信息
+
 const getRequestInfo = (api: SwaggerApiTS) => {
   const requestHeader: CommonParamTS[] = [];
   const requestPathParam: CommonParamTS[] = []; // 请求路径参数
   const requestPathQuery: CommonParamTS[] = []; // 请求路径query
-  let requestBody: CommonParamTS[] | SchemaObjectTS; // 请求体
+  // @ts-ignore
+  let requestBody: SchemaObjectTS = {}; // 请求体
   let requestBodyType = 'json';
 
 
@@ -60,10 +62,10 @@ const getRequestInfo = (api: SwaggerApiTS) => {
 
       switch (item.in) {
         case "path":
-          requestPathParam.push(defaultParam);
+          requestPathParam.push({...defaultParam, type: item.type || 'string'});
           break;
         case "query":
-          requestPathQuery.push(defaultParam);
+          requestPathQuery.push({...defaultParam, type: item.type || 'string'});
           break;
         case "body":
           requestBody = {
@@ -73,13 +75,14 @@ const getRequestInfo = (api: SwaggerApiTS) => {
             ...(item.schema ? item.schema : {})
           }
           break;
-        case "formData":
-          defaultParam.type = item.type || "text";
-          if (!Array.isArray(requestBody)) {
-            requestBody = [];
-          }
-          requestBody.push(defaultParam);
-          break;
+        // TODO: 暂不考虑 formData 情况
+        // case "formData":
+        //   defaultParam.type = item.type || "text";
+        //   if (!Array.isArray(requestBody)) {
+        //     requestBody = [];
+        //   }
+        //   requestBody.push({...defaultParam, type: item.type || "text"});
+        //   break;
         case "header":
           requestHeader.push(defaultParam);
           break;
@@ -114,8 +117,44 @@ const getRequestInfo = (api: SwaggerApiTS) => {
     return json;
   }
 
-  // @ts-expect-error
-  return { requestHeader, requestPathParam, requestPathQuery, requestBody, requestBodyType };
+  const requestPathParamHandle = requestPathParam.reduce((total, item) => {
+    // @ts-ignore
+    total[item.name] = {
+      type: item.type,
+      required: item.required,
+      description: item.description
+    }
+    return total;
+  }, {});
+
+  const requestPathQueryHandle = requestPathQuery.reduce((total, item) => {
+    // @ts-ignore
+    total[item.name] = {
+      type: item.type,
+      required: item.required,
+      description: item.description
+    }
+    return total;
+  }, {});
+
+  return { requestHeader, requestPathParam: {
+    name: 'requestPathParam',
+    required: true,
+    description: '请求Param参数',
+    type: 'object',
+    properties: requestPathParamHandle,
+  }, requestPathQuery: {
+    name: 'requestPathQuery',
+    required: true,
+    description: '请求Query参数',
+    type: 'object',
+    properties: requestPathQueryHandle,
+
+    // @ts-ignore
+  }, requestBody: {
+    name: 'requestBody',
+    ...(requestBody || {})
+  }, requestBodyType };
 }
 
 
@@ -124,7 +163,7 @@ const getRequestInfo = (api: SwaggerApiTS) => {
 /**
  * 解析 swagger，生成 语义化json
  * @param {object | string} data
- * @return {} 
+ * @return {}
  */
  export const parseSwagger = async (data: SwaggerJsonTS): Promise<ApiInfoTS>  => {
   try {
@@ -148,7 +187,7 @@ const getRequestInfo = (api: SwaggerApiTS) => {
     const dataHandle = await swagger({
       spec: data
     });
-    
+
     data = dataHandle.spec;
 
     // 拼装 apiList
@@ -157,7 +196,7 @@ const getRequestInfo = (api: SwaggerApiTS) => {
     for (const [path, apis] of Object.entries(data.paths)) {
       for (const [method, item] of Object.entries(apis)) {
         const { requestHeader, requestPathParam, requestPathQuery, requestBody, requestBodyType } = getRequestInfo(item);
-  
+
         apiList.push({
           path,
           method,

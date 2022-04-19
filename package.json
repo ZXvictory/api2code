@@ -1,24 +1,19 @@
 {
-  "name": "swagger-codegen-fe",
+  "name": "@super/api2code",
   "version": "0.0.1",
-  "description": "面向前端的swagger代码生成器",
-  "main": "index.js",
+  "description": "接口代码生成器（TS 代码、HTTP service 代码）",
+  "main": "./lib/index.js",
+  "bin": {
+    "api2code": "./lib/command.js"
+  },
   "scripts": {
     "build": "rollup -c",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
-    "test": "ts-node --transpile-only ./src/test/index.ts"
+    "test": "ts-node --transpile-only ./src/test/index.ts",
+    "tt": "node ./src/11.js -V"
   },
-  "keywords": [
-    "swagger",
-    "code",
-    "typeScript",
-    "ts",
-    "axios",
-    "http",
-    "api",
-    "document"
-  ],
-  "author": "zxvictory@126.com",
+  "keywords": [],
+  "author": "Hermit",
   "license": "ISC",
   "devDependencies": {
     "@types/ejs": "^3.1.0",
@@ -30,6 +25,7 @@
     "@typescript-eslint/parser": "^3.9.1",
     "eslint": "^7.7.0",
     "rollup": "^1.23.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-hashbang": "^2.2.2",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript": "^1.0.1",
@@ -39,6 +35,8 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "commander": "^9.1.0",
+    "quicktype-core": "^6.0.70",
     "swagger-client": "^3.5.1"
   }
 }
