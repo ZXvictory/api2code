@@ -13,7 +13,11 @@
     "tt": "node ./src/11.js -V"
   },
   "keywords": [],
+  "files": [
+    "lib"
+  ],
   "author": "Hermit",
+  "repository": "https://github.com/ZXvictory/api2code",
   "license": "ISC",
   "devDependencies": {
     "@types/ejs": "^3.1.0",
